@@ -15,23 +15,12 @@ return new class extends Migration
     {
         Schema::create('project_technology', function (Blueprint $table) {
 
-            $table->id();
-            // $table->foreignId('project_id')->constrained()->cascadeOnDelete();
-            // $table->foreignId('type_id')->constrained()->cascadeOnDelete();
-
-            $table->unsignedBigInteger('project_id');
-            $table->foreign('project_id')
-                  ->references('id')
-                  ->on('projects')->cascadeOnDelete();
-
-            $table->unsignedBigInteger('type_id');
-            $table->foreign('type_id')
-                    ->references('id')
-                    ->on('types')->cascadeOnDelete();      
+             $table->foreignId('project_id')->constrained()->cascadeOnDelete();
+             $table->foreignId('technology_id')->constrained()->cascadeOnDelete();    
 
 
-            // $table->primary(['project_id', 'type_id']);
-            $table->timestamps();
+             $table->primary(['project_id', 'technology_id']);
+             $table->timestamps();
         });
     }
 

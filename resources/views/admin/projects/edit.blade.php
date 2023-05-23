@@ -41,6 +41,15 @@
                 @endforeach
             </select>
         </div>
+        <div class="mb-3">
+          <div>Technologies</div>
+          @foreach ($technologies as $technology)
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="technologies" value="{{ $technology->id }}" name="technologies[]" {{ $project->technologies->contains($technology->id) ? 'checked' : ''}}>
+            <label class="form-check-label" for="technologies">{{ $technology->name }}</label>
+          </div>
+          @endforeach
+      </div>
           <div class="mb-3">
             
             <div class="preview">
