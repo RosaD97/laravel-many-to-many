@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\Technology;
 use App\Models\Type;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
@@ -32,8 +33,9 @@ class ProjectController extends Controller
     public function create()
     {
         $types = Type::all();
+        $technologies = Technology::all();
 
-        return view('admin.projects.create', compact('types'));
+        return view('admin.projects.create', compact('types', 'technologies'));
 
     }
 
@@ -47,13 +49,21 @@ class ProjectController extends Controller
     {
         $data = $request->validated();
 
+        // dd($data);
+
         $new_project = new Project();
         $new_project->fill($data);
         $new_project->slug = Str::slug($data['title']);
+
         if(isset($data['image'])){
             $new_project->image = Storage::put('uploads', $data['image']);
         }
+
         $new_project->save();
+
+        if(isset($data['technologies'])){
+            $new_project->technologies()->sync($data['technologies']);
+        }
 
         return redirect()->route('admin.projects.index')->with('message', 'Nuovo project inserito con successo');
     }
@@ -79,8 +89,10 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
+        $technologies = Technology::all();
         $types = Type::all();
-        return view('admin.projects.edit', compact('project', 'types'));
+
+        return view('admin.projects.edit', compact('project', 'types', 'technologies'));
     }
 
     /**
@@ -98,6 +110,12 @@ class ProjectController extends Controller
 
         if(isset($data['image'])){
             $project->image = Storage::put('uploads', $data['image']);
+        }
+
+        if(isset($data['technologies'])){
+            $project->technologies()->sync($data['technologies']);
+        } else {
+             $project->technologies()->detach();
         }
 
         $project->update($data);
