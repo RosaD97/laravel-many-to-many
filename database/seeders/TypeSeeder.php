@@ -19,9 +19,9 @@ class TypeSeeder extends Seeder
     {
         $types = ['completed', 'in progress', 'to start'];
 
-        // Schema::disableForeignKeyConstraints();
-        //Type::truncate();
-        // Schema::enableForeignKeyConstraints();
+        Schema::disableForeignKeyConstraints();
+        Type::truncate();
+        Schema::enableForeignKeyConstraints();
 
         foreach($types as $type){
             $new_type = new Type();

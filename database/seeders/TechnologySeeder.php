@@ -6,6 +6,7 @@ use App\Models\Technology;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Schema;
 
 class TechnologySeeder extends Seeder
 {
@@ -18,9 +19,9 @@ class TechnologySeeder extends Seeder
     {
         $technologies = ['HTML', 'CSS', 'JS', 'Laravel', 'React', 'Sass', 'VueJS', 'Angular'];
 
-        // Schema::disableForeignKeyConstraints();
+        Schema::disableForeignKeyConstraints();
         Technology::truncate();
-        // Schema::enableForeignKeyConstraints();
+        Schema::enableForeignKeyConstraints();
 
         foreach($technologies as $technology){
 
@@ -28,7 +29,7 @@ class TechnologySeeder extends Seeder
             $new_technology->name = $technology;
             $new_technology->slug = Str::slug($new_technology->name);
             $new_technology->save();
-            
+
         }
     }
 }
