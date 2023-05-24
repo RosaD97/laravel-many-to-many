@@ -31,14 +31,14 @@
                 <td>{{ $project->text}}</td>
                 <td>{{ $project->start_date }}</td>
                 <td>{{ $project->slug}}</td>
-                <td>
+                <td class="d-flex">
                     <a class="btn btn-primary" href="{{ route('admin.projects.show', $project->slug)}}">Show</a>
-                    <a class="btn btn-primary" href="{{ route('admin.projects.edit',  $project->slug)}}">Edit</a>
+                    <a class="btn btn-primary mx-2" href="{{ route('admin.projects.edit',  $project->slug)}}">Edit</a>
                     <form action="{{ route('admin.projects.destroy', $project)}}" method="POST">
                       @csrf
 
                       @method('DELETE')
-                      <button class="btn btn-primary">Delete</button>
+                      <button class="btn btn-danger">Delete</button>
                     </form>
                 </td>
 
