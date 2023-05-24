@@ -11,6 +11,8 @@
     </div>
     <h4>Type: {{ $project->type?->name ?: 'None' }}</h4>
 
+    <h4>Technology: {{ $project->technology?->name ?: 'None' }}</h4>
+
 
     @if($project->image)
     <div>
